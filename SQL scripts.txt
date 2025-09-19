@@ -1,0 +1,62 @@
+-- Roles
+INSERT INTO roles (code) VALUES ('ADMIN'), ('LIBRARIAN'), ('STAFF');
+
+-- Users (passwords should be hashed in production So put it with Postman)
+INSERT INTO users (name, email, PHONE_NUMBER , password) VALUES
+--('Mostafa', 'MostafaHabeb@gmail.com', '01128352188', 'Moataz123m!')
+('Amr', 'AmrHabeb@gmail.com', '0100000002', 'Moataz123m!');
+
+-- Assign roles
+INSERT INTO user_roles (user_id, roles_id) VALUES
+--(1, 1);
+(2, 2); 
+
+-- Publishers
+INSERT INTO publisher (name, address, website) VALUES
+--('O''Reilly Media', '1005 Gravenstein Hwy, CA', 'https://www.oreilly.com');
+('Penguin Random House', 'New York, USA', 'https://www.penguinrandomhouse.com');
+
+-- Books(Do it with postman to send categoryIds for Auto Link)
+INSERT INTO book (name, isbn, edition, PUBLICATION_YEAR , language, summary, COVER_URL , publisher_id) VALUES
+--('Foundation', '978-0451457998', '1st', 1951, 'English', 'Sci-fi classic about galactic empire.', 'foundation.jpg', 2);
+('Clean Code', '978-0132350884', '1st', 2008, 'English', 'A Handbook of Agile Software Craftsmanship', 'cleancode.jpg', 3);
+
+-- Authors(Do it with postman to send book_id for Auto Link)
+INSERT INTO author (FIRST_NAME , LAST_NAME , biography) VALUES
+('Isaac', 'Asimov', 'Famous sci-fi author');
+--('Robert', 'Martin', 'Author of Clean Code');
+
+-- Book <-> Author
+INSERT INTO book_author (book_id, author_id) VALUES
+(4, 5);
+--(2, 2);
+
+
+-- Categories
+INSERT INTO categories (name, parent_id) VALUES
+--('Fiction', NULL);
+--('Science Fiction', NULL);
+--('Non-Fiction', NULL),
+('Computer Science', 6);
+
+
+-- Book <-> Category
+INSERT INTO book_category (book_id, category_id) VALUES
+(1, 2), -- Foundation -> Science Fiction
+(2, 4); -- Clean Code -> Computer Science
+
+-- Copies
+INSERT INTO BOOK_COPY bc (book_id, barcode, status) VALUES
+(1, 'BC-001', 'AVAILABLE'),
+(1, 'BC-002', 'BORROWED'),
+(2, 'BC-003', 'AVAILABLE');
+
+-- Members
+INSERT INTO MEMBER m (FULL_NAME , email, phone, address, NATIONAL_ID) VALUES
+--('Ali Hassan', 'ali@example.com', '0101234567', 'Cairo, Egypt', 1234567890),
+('Sara Ibrahim', 'sara@example.com', '0109876543', 'Alexandria, Egypt', 9876543210);
+
+-- Borrowing Transactions
+INSERT INTO BORROWING_TRANSACTION (member_id, BOOK_COPY_ID, user_id, BORROW_DATE, DUE_DATE, RETURN_DATE) 
+VALUES
+(21, 2, 2, SYSDATE - 20, SYSDATE - 5, SYSDATE - 2);
